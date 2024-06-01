@@ -74,10 +74,10 @@ public class ZooKeeperClient {
         Stat stat = zooKeeper.exists(path, false);
         if (stat == null) {
             zooKeeper.create(path, data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-            System.out.println("criado: "+ip+" | CPU: "+load);
+            System.out.println("Znode Criado: IP: "+ip+" | CPU: "+load);
         } else {
             zooKeeper.setData(path, data.getBytes(), stat.getVersion());
-            System.out.println("Atualizado: "+ip+" | CPU: "+load);
+            System.out.println("Znode Atualizado: IP: "+ip+" | CPU: "+load);
         }
     }
 
@@ -162,6 +162,8 @@ public class ZooKeeperClient {
                 OutputStream outputStream = exchange.getResponseBody();
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 outputStream.close();
+
+                System.out.println("BEST SERVER IP ADDRESS SUCCESSFULLY SENT : "+bestIp);
             } else {
                 exchange.sendResponseHeaders(405, -1); // Method Not Allowed
             }
